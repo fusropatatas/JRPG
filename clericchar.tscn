@@ -331,7 +331,7 @@ position = Vector2(1, 1)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_7nhro")
 animation = &"Speedup"
-frame_progress = 0.91764
+frame_progress = 0.513962
 
 [node name="focus" type="Sprite2D" parent="."]
 visible = false

@@ -25,45 +25,45 @@ func _ready():
 func _process(delta):
 	if enemies[0].healthcheck() <= 0 && enemies[1].healthcheck() <= 0:
 		win.show()
-	
-	if Input.is_action_just_pressed("ui_down"):
-		if index > 0:
-			index -= 1
-			switch_focus(index, index + 1)
+	if not is_battling:
+		if Input.is_action_just_pressed("ui_down"):
+			if index > 0:
+				index -= 1
+				switch_focus(index, index + 1)
+				
+		if Input.is_action_just_pressed("ui_up"):
+			if index < enemies.size() - 1:
+				index += 1
+				switch_focus(index, index - 1)
+				
+		if Input.is_action_just_pressed("apress"):
+			action_queue.push_back(index)
+			action_type.push_back(1) # 1 action_type means normal attack
+			emit_signal("next_player")
+		
+		if Input.is_action_just_pressed("spress"):
+			action_queue.push_back(index)
+			action_type.push_back(2) # 2 action_type means group attack
+			emit_signal("next_player")
 			
-	if Input.is_action_just_pressed("ui_up"):
-		if index < enemies.size() - 1:
-			index += 1
-			switch_focus(index, index - 1)
+		if Input.is_action_just_pressed("hpress"):
+			action_queue.push_back(index)
+			action_type.push_back(3) # 3 action_type means heal self
+			emit_signal("next_player")
 			
-	if Input.is_action_just_pressed("apress"):
-		action_queue.push_back(index)
-		action_type.push_back(1) # 1 action_type means normal attack
-		emit_signal("next_player")
-	
-	if Input.is_action_just_pressed("spress"):
-		action_queue.push_back(index)
-		action_type.push_back(2) # 2 action_type means group attack
-		emit_signal("next_player")
-		
-	if Input.is_action_just_pressed("hpress"):
-		action_queue.push_back(index)
-		action_type.push_back(3) # 3 action_type means heal self
-		emit_signal("next_player")
-		
-	if Input.is_action_just_pressed("jpress"):
-		action_queue.push_back(index)
-		action_type.push_back(4) # 4 action_type means group heal
-		emit_signal("next_player")
-		
-	if Input.is_action_just_pressed("fpress"):
-		action_queue.push_back(index)
-		action_type.push_back(0) # 0 action_type means skip turn
-		emit_signal("next_player")
-		
-	if action_queue.size() == enemies.size() and not is_battling:
-		is_battling = true
-		_action(action_queue, action_type)
+		if Input.is_action_just_pressed("jpress"):
+			action_queue.push_back(index)
+			action_type.push_back(4) # 4 action_type means group heal
+			emit_signal("next_player")
+			
+		if Input.is_action_just_pressed("fpress"):
+			action_queue.push_back(index)
+			action_type.push_back(0) # 0 action_type means skip turn
+			emit_signal("next_player")
+			
+		if action_queue.size() == enemies.size():
+			is_battling = true
+			_action(action_queue, action_type)
 
 func _action(enemy, act):
 	var c = 0
