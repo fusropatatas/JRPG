@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdupa2wb88w8o"]
+
+[ext_resource type="Script" path="res://enemy_group.gd" id="1_7baha"]
+[ext_resource type="PackedScene" uid="uid://x8hhr5wm2h7y" path="res://earthsp.tscn" id="2_du7bd"]
+[ext_resource type="PackedScene" uid="uid://dim88tew2apl8" path="res://watersp.tscn" id="3_lvbat"]
+
+[node name="EnemyGroup" type="Node2D"]
+script = ExtResource("1_7baha")
+
+[node name="earthsp" parent="." instance=ExtResource("2_du7bd")]
+position = Vector2(796, 539)
+scale = Vector2(2, 2)
+
+[node name="watersp" parent="." instance=ExtResource("3_lvbat")]
+position = Vector2(1000, 318)
+scale = Vector2(2, 2)

@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://c426p8f0urxor"]
+
+[ext_resource type="Texture2D" uid="uid://cf2fidxv0283y" path="res://assets/BG.jpg" id="2_7xda6"]
+[ext_resource type="PackedScene" uid="uid://cdupa2wb88w8o" path="res://enemy_group.tscn" id="3_sydrb"]
+[ext_resource type="Texture2D" uid="uid://bqnjbk57ur104" path="res://assets/WinBG.png" id="4_2uyja"]
+[ext_resource type="PackedScene" uid="uid://bqnuiy8y0657" path="res://player_group.tscn" id="4_g13g6"]
+[ext_resource type="Texture2D" uid="uid://b7ani2ptcaugw" path="res://assets/LoseBG.png" id="5_wpr3y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g84o2"]
+font_size = 22
+
+[node name="Handler" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1239.0
+offset_bottom = 699.0
+size_flags_horizontal = 0
+texture = ExtResource("2_7xda6")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="EnemyGroup" parent="." instance=ExtResource("3_sydrb")]
+position = Vector2(9, 3)
+
+[node name="PlayerGroup" parent="." instance=ExtResource("4_g13g6")]
+position = Vector2(2, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="choice" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 27.0
+offset_right = 116.0
+offset_bottom = 133.0
+
+[node name="Nav" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+disabled = true
+text = "UP/DOWN = Select Target"
+
+[node name="Attack" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+disabled = true
+text = "A = Normal Attack"
+
+[node name="Group Attack" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+disabled = true
+text = "S = Group Attack"
+
+[node name="Heal Self" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+disabled = true
+text = "H = Heal Self
+"
+
+[node name="Group Heal" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+disabled = true
+text = "J = Group Heal
+"
+
+[node name="Skip" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+disabled = true
+text = "F = Sleep"
+
+[node name="BattleAnnouncer" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = 157.0
+offset_top = 46.0
+offset_right = 812.0
+offset_bottom = 114.0
+text = "Stuff Happens!"
+label_settings = SubResource("LabelSettings_g84o2")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Win" type="TextureRect" parent="."]
+visible = false
+offset_left = -5.0
+offset_top = -1.0
+offset_right = 1157.0
+offset_bottom = 698.0
+texture = ExtResource("4_2uyja")
+
+[node name="Lose" type="TextureRect" parent="."]
+visible = false
+offset_left = -4.0
+offset_top = -3.0
+offset_right = 1159.0
+offset_bottom = 694.0
+texture = ExtResource("5_wpr3y")
+
+[connection signal="get_player_health" from="EnemyGroup" to="PlayerGroup" method="_on_enemy_group_get_player_health"]
+[connection signal="next_player" from="EnemyGroup" to="PlayerGroup" method="_on_enemy_group_next_player"]
+[connection signal="player_damage" from="EnemyGroup" to="PlayerGroup" method="_on_enemy_group_player_damage"]
+[connection signal="player_heal" from="EnemyGroup" to="PlayerGroup" method="_on_enemy_group_player_heal"]

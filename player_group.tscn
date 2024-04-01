@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqnuiy8y0657"]
+
+[ext_resource type="PackedScene" uid="uid://cb36cuptoa7in" path="res://orcchar.tscn" id="1_1rnqp"]
+[ext_resource type="Script" path="res://player_group.gd" id="1_diwth"]
+[ext_resource type="PackedScene" uid="uid://blwpayjfcdqot" path="res://clericchar.tscn" id="2_gq6ky"]
+
+[node name="PlayerGroup" type="Node2D"]
+script = ExtResource("1_diwth")
+
+[node name="OrcChar" parent="." instance=ExtResource("1_1rnqp")]
+position = Vector2(397, 313)
+scale = Vector2(1.5, 1.5)
+
+[node name="ClericChar" parent="." instance=ExtResource("2_gq6ky")]
+position = Vector2(161, 531)
+scale = Vector2(1.5, 1.5)
